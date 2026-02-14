@@ -1,0 +1,21 @@
+name: Quantum 24/7 Cron
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  run-quantum:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Quantum
+        run: |
+          echo "Quantum running at $(date)"
+          if [ -f quantum.sh ]; then
+            chmod +x quantum.sh
+            ./quantum.sh
+          else
+            echo "No quantum.sh found"
+          fi
